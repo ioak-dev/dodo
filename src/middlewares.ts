@@ -3,12 +3,13 @@ import jwt from "jsonwebtoken";
 import { validate } from "./modules/auth/helper";
 
 export const authorize = async (req: any, res: any, next: any) => {
-  const token = req.headers["authorization"];
-  if (!token) {
+  const authString = req.headers["authorization"] || "";
+  const authParts = authString.split(" ");
+  const token = authParts[0];
+  if (!token || token === "") {
     return res.sendStatus(401);
   }
   const out = await validate(token);
-  console.log("---11", out);
   if (!out) {
     return res.sendStatus(401);
   }

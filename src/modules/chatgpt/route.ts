@@ -1,6 +1,6 @@
 import { authorize } from "../../middlewares";
-import { updateChatgpt } from "./service";
+import { processChatGpt } from "./service";
 
 module.exports = function (router: any) {
-  router.post("/chatgpt", authorize, updateChatgpt);
+  router.post("/chatgpt", authorize, processChatGpt);
 };
