@@ -13,40 +13,26 @@ const cors = require("cors");
 var ApiRoute = require("./route");
 
 const gqlScalarSchema = require("./modules/gql-scalar");
+const assetSchema = require("./modules/asset");
 
 const databaseUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
-mongoose.connect(databaseUri, {
-});
+mongoose.connect(databaseUri, {});
 mongoose.pluralize(undefined);
 
 const app = express();
 
 const server = new ApolloServer({
-  typeDefs: [
-    gqlScalarSchema.typeDefs,
-  ],
-  resolvers: [
-    gqlScalarSchema.resolvers,
-  ],
+  typeDefs: [gqlScalarSchema.typeDefs, assetSchema.typeDefs],
+  resolvers: [gqlScalarSchema.resolvers, assetSchema.resolvers],
   context: ({ req, res }: any) => {
-    const authString = req.headers.authorization || "";
-    const authParts = authString.split(" ");
-    let token = "";
-    let user = null;
-    let asset = "";
-    if (authParts.length === 2) {
-      token = authParts[1];
-      asset = authParts[0];
-      user = authorize(token);
-    }
-    return { user, token, asset };
+    const token = req.headers.authorization || "";
+    return { token };
   },
   introspection: true,
   playground: true,
 });
 
-server.start().then(() => server.applyMiddleware({ app }))
-
+server.start().then(() => server.applyMiddleware({ app }));
 
 app.use(cors());
 

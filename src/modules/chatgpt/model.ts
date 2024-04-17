@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-const incomeCategorySchema = new Schema(
+const chatgptSchema = new Schema(
   {
     name: { type: String },
     kakeibo: { type: String },
@@ -10,7 +10,7 @@ const incomeCategorySchema = new Schema(
   { timestamps: true }
 );
 
-const incomeCategoryCollection = "incomecategory";
+const chatgptCollection = "chatgpt";
 
 // module.exports = mongoose.model('bookmarks', articleSchema);
-export { incomeCategorySchema, incomeCategoryCollection };
+export { chatgptSchema, chatgptCollection };

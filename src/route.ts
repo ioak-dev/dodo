@@ -6,6 +6,6 @@ router.get("/", (_: any, res: any) => {
   res.end();
 });
 
-require("./modules/incomecategory/route")(router);
+require("./modules/chatgpt/route")(router);
 
 module.exports = router;
