@@ -62,13 +62,17 @@ app.use((err: any, req: any, res: any, next: any) => {
   // .send(err.name + ": " + err.message + "\n\nDetails:\n" + err.stack);
 });
 
-app.listen({ port: process.env.PORT || 4000 }, () =>
-  console.log(
-    `🚀 Server ready at http://localhost:${process.env.PORT || 4000}${
-      server.graphqlPath
-    }`
-  )
+const variableToSetTimeout = app.listen(
+  { port: process.env.PORT || 4000 },
+  () =>
+    console.log(
+      `🚀 Server ready at http://localhost:${process.env.PORT || 4000}${
+        server.graphqlPath
+      }`
+    )
 );
+
+variableToSetTimeout.timeout = 300000;
 
 // server
 //   .listen({ port: process.env.PORT || 4000 })
