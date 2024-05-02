@@ -28,8 +28,11 @@ export const processChatGpt = async (
     const res = await axios.post(`${CHATGPT_API_BASE_URL}${uri}`, data, {
       headers: _headers,
     });
+    console.log("**GPT service success");
     return { code: res.status, data: res.data };
   } catch (error: any) {
+    console.log("**GPT service error");
+    console.log(error);
     if (error.response) {
       return { code: error.response.status, data: error.response.data };
     } else {
