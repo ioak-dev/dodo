@@ -3,16 +3,15 @@ import { chatgptCollection, chatgptSchema } from "./model";
 const { getGlobalCollection } = require("../../lib/dbutils");
 
 const CHATGPT_API_BASE_URL = "https://api.openai.com/";
-const CHATGPT_DEFAULT_AUTH = "DEFAULT CHATGPT KEY";
+const chatgptDefaultApiKey = process.env.CHATGPT_API_KEY || "DEFAULT CHATGPT KEY";
 
 export const processChatGpt = async (
   uri: string,
   data: any,
   authorizationHeader: any
 ) => {
-  const model = getGlobalCollection(chatgptCollection, chatgptSchema);
 
-  let authorization = `Bearer ${CHATGPT_DEFAULT_AUTH}`;
+  let authorization = `Bearer ${chatgptDefaultApiKey}`;
 
   const authString = authorizationHeader || "";
   const authParts = authString.split(" ");
